@@ -21,6 +21,16 @@ section {
 }
 
 a {
-  color: #0077cc;
+  color: #0066cc;
   text-decoration: none;
 }
+
+section {
+  margin-bottom: -20px;
+}
+
+body {
+  line-height: 1.6;
+}
+
+
