@@ -1,99 +1,747 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nathanaël Derouineau – Développeur web</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathanaël Derouineau – Développeur Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0f0e;
+    --bg2: #111614;
+    --card: #151a17;
+    --border: #1e2822;
+    --accent: #4d9fff;
+    --accent2: #3a8fee;
+    --text: #e8efe9;
+    --muted: #6a8070;
+    --muted2: #4a5e54;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* GLOW BG */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(77,159,255,0.06) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(12,15,14,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--bg) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    font-size: 0.85rem;
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(61,255,160,0.08);
+    border: 1px solid rgba(61,255,160,0.2);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(232,239,233,0.25);
+  }
+
+  .hero h1 .accent { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    animation: fadeUp 0.6s 0.2s ease both;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: 'Figtree', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(77,159,255,0.2); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--muted2);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--muted2);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    animation: scan 2s ease infinite;
+  }
+
+  @keyframes scan {
+    to { left: 100%; }
+  }
+
+  /* SECTIONS */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(61,255,160,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    border-color: rgba(61,255,160,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-thumb {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-thumb.console {
+    background: linear-gradient(135deg, #1a1030 0%, #2d1b60 100%);
+  }
+
+  .project-thumb.paris {
+    background: linear-gradient(135deg, #0a1f12 0%, #0d3320 100%);
+  }
+
+  .project-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, var(--card) 100%);
+  }
+
+  .project-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  .project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-techs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-pill {
+    background: rgba(61,255,160,0.08);
+    border: 1px solid rgba(61,255,160,0.15);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+  }
+
+  .project-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); }
+  .project-link::after { content: '→'; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .service-card:hover { border-color: rgba(61,255,160,0.2); transform: translateY(-2px); }
+  .service-card:hover::before { opacity: 1; }
+
+  .service-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(77,159,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .contact-box p {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-email {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(61,255,160,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .contact-email:hover { border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: var(--muted2);
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-top: 6rem; }
+    .scroll-hint { left: 1.5rem; }
+    .contact-box { padding: 2rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-  <h1>Nathanaël Derouineau Leroux</h1>
-  <p>Étudiant en licence informatique – Création de sites web</p>
-</header>
-
-<section>
-  <h2>À propos</h2>
-  <p>
-    Je suis étudiant en informatique et je crée des sites web simples, modernes et
-    accessibles 24h/24 pour aider les petites entreprises et indépendants à être
-    visibles en ligne.
-  </p>
-</section>
-
-<section>
-  <h2>Compétences</h2>
-  <ul>
-    <li>HTML / CSS / JavaScript</li>
-    <li>Création de sites vitrines</li>
-    <li>Mise en ligne de sites web (GitHub, Netlify)</li>
-    <li>Sites rapides et responsives (adaptés à différents formats d’écran)</li>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NDL</a>
+  <ul class="nav-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
   </ul>
-</section>
+</nav>
 
-<section>
-  <h2>Projets</h2>
-  <ul>
-    <li>
-      <strong>Site web culturel – évolution des consoles de jeux vidéo</strong><br>
-      <p>
-        Création d’un site présentant l’évolution des consoles de jeux vidéo et leurs
-        jeux emblématiques au fil du temps.
-      </p>
-      <p>
-        Réalisations :
-      </p>
-      <ul>
-        <li>Structure des pages</li>
-        <li>Design en HTML / CSS</li>
-        <li>Mise en ligne du site</li>
-      </ul>
-      <a href="https://histoirescsl.netlify.app/" target="_blank">Voir le site</a>
-    </li>
-
-    <li>
-      <strong>Site web sur un gestionnaire de Paris sportifs</strong><br>
-      <p>
-        Création d’un site présentant différent aspect pouvant être développer sur un site 
-        de gestionnaire de paris sportifs.
-      </p>
-      <p>
-        Réalisations :
-      </p>
-      <ul>
-        <li>Structure des pages</li>
-        <li>Design en HTML / CSS</li>
-        <li>Mise en ligne du site</li>
-      </ul>
-      <a href="https://prono-demo.netlify.app/" target="_blank">Voir le site</a>
-    </li>
-  </ul>
-</section>
-
-<section>
-  <h2>Services</h2>
-  <ul>
-    <li>Création de sites vitrines simples et professionnels à partir de 100€</li>
-    <li>Mise en ligne du site et configuration</li>
-    <li>Site adapté aux mobiles et tablettes</li>
-    <li>Modifications simples après livraison</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Contact</h2>
-  <p>
-    Vous avez besoin d’un site web simple et professionnel pour votre activité ?
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Disponible pour des missions freelance</div>
+  <h1>
+    Nathanaël<br>
+    <span class="line2">Derouineau</span><br>
+    <span class="accent">Dev Web.</span>
+  </h1>
+  <p class="hero-sub">
+    Étudiant en licence informatique à Caen. Je crée des sites web modernes, rapides et accessibles pour aider les petites entreprises à être visibles en ligne.
   </p>
-  <p>
-    Vous pouvez me contacter par email :
-    <a href="mailto:derouineaunathanael@gmail.com">
-      derouineaunathanael@gmail.com
-    </a>
-  </p>
+  <div class="hero-actions">
+    <a href="#projets" class="btn-primary">Voir mes projets</a>
+    <a href="#contact" class="btn-secondary">Me contacter</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- COMPÉTENCES -->
+<section class="section" id="competences">
+  <div class="section-label fade-in">Mes compétences</div>
+  <h2 class="section-title fade-in">Ce que je maîtrise</h2>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">HTML / CSS</div>
+      <div class="skill-desc">Intégration pixel-perfect, design responsive adapté à tous les écrans.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-desc">Interactions dynamiques, animations et logique côté client.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🚀</div>
+      <div class="skill-name">Mise en ligne</div>
+      <div class="skill-desc">Déploiement via GitHub et Netlify. Site en ligne en quelques minutes.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Responsive Design</div>
+      <div class="skill-desc">Sites optimisés pour mobile, tablette et desktop sans compromis.</div>
+    </div>
+  </div>
 </section>
 
+<hr class="divider">
+
+<!-- PROJETS -->
+<section class="section" id="projets">
+  <div class="section-label fade-in">Portfolio</div>
+  <h2 class="section-title fade-in">Mes réalisations</h2>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-thumb console">🎮</div>
+      <div class="project-body">
+        <div class="project-tag">Site culturel</div>
+        <div class="project-title">Évolution des consoles de jeux vidéo</div>
+        <div class="project-desc">Site présentant l'histoire des consoles et leurs jeux emblématiques au fil du temps. Structure multi-pages, design soigné.</div>
+        <div class="project-footer">
+          <div class="project-techs">
+            <span class="tech-pill">HTML</span>
+            <span class="tech-pill">CSS</span>
+          </div>
+          <a href="https://histoirescsl.netlify.app/" target="_blank" class="project-link">Voir le site</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-thumb paris">⚽</div>
+      <div class="project-body">
+        <div class="project-tag">Application web</div>
+        <div class="project-title">Gestionnaire de paris sportifs</div>
+        <div class="project-desc">Interface de gestion de pronostics sportifs avec suivi des performances et affichage des résultats.</div>
+        <div class="project-footer">
+          <div class="project-techs">
+            <span class="tech-pill">HTML</span>
+            <span class="tech-pill">CSS</span>
+            <span class="tech-pill">JavaScript</span>
+          </div>
+          <a href="#" class="project-link">Voir le site</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-label fade-in">Tarifs</div>
+  <h2 class="section-title fade-in">Mes services</h2>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-price">100€</div>
+      <div class="service-name">Site vitrine simple</div>
+      <div class="service-desc">1 page, design moderne, responsive, mise en ligne incluse. Idéal pour un premier site ou une carte de visite en ligne.</div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-price">250€</div>
+      <div class="service-name">Site vitrine complet</div>
+      <div class="service-desc">Plusieurs pages, formulaire de contact, galerie, système de réservation. Parfait pour un commerce ou artisan.</div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-price">Sur devis</div>
+      <div class="service-name">Application web</div>
+      <div class="service-desc">Projet plus complexe avec fonctionnalités interactives, gestion de données ou interface sur mesure.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="contact-box fade-in">
+    <h2>Travaillons ensemble 🤝</h2>
+    <p>Vous avez un projet en tête ? Contactez-moi et je vous réponds sous 24h.</p>
+    <a href="mailto:derouineaunathanael@gmail.com" class="contact-email">derouineaunathanael@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Nathanaël Derouineau Leroux</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
