@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales – NDL Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f7f8fc;
+    --light-blue: #eef3fb;
+    --blue: #2563eb;
+    --blue-mid: #1d4ed8;
+    --ink: #0f172a;
+    --ink2: #1e293b;
+    --muted: #64748b;
+    --muted2: #94a3b8;
+    --border: #e2e8f0;
+    --border-blue: #bfdbfe;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-placeholder {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: 2px dashed var(--border-blue);
+    background: var(--light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-placeholder::after {
+    content: 'LOGO';
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--blue);
+    opacity: 0.5;
+  }
+
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--blue); }
+  .nav-back::before { content: '←'; }
+
+  /* ── PAGE ── */
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 9rem 3rem 6rem;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted2);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--muted2); }
+
+  /* Header */
+  .page-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-date {
+    font-size: 0.8rem;
+    color: var(--muted2);
+    margin-bottom: 3rem;
+  }
+
+  /* Sections */
+  .ml-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .ml-section:last-of-type {
+    border-bottom: none;
+  }
+
+  .ml-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .ml-section h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 1.1rem;
+    background: var(--blue);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .ml-section p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 0.6rem;
+  }
+  .ml-section p:last-child { margin-bottom: 0; }
+
+  /* Champs à compléter */
+  .fill-in {
+    display: inline-block;
+    background: #fef9c3;
+    border: 1.5px dashed #f59e0b;
+    color: #92400e;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.1rem 0.6rem;
+    border-radius: 6px;
+    font-style: italic;
+  }
+
+  .fill-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: #92400e;
+    line-height: 1.6;
+  }
+  .fill-note::before {
+    content: '⚠️';
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  footer p { font-size: 0.8rem; color: var(--muted2); }
+
+  footer .footer-right { display: flex; gap: 1.5rem; }
+  footer .footer-right a {
+    font-size: 0.8rem;
+    color: var(--muted2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer .footer-right a:hover { color: var(--blue); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-wrapper { padding: 7rem 1.5rem 4rem; }
+    footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1.5rem; }
+    .footer-right { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo-wrapper">
+    <div class="hero-logo-area">               
+      <img src="ressource/logo-ndlstudio.png" alt="NDL Studio" style="width:48px; height:48px; border-radius:8px;object-fit:contain">                
+      </div>
+    <span class="nav-brand">NDL Studio</span>
+  </a>
+  <a href="index.html" class="nav-back">Retour au site</a>
+</nav>
+
+<!-- CONTENU -->
+<div class="page-wrapper">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a>
+    <span>/</span>
+    <span>Mentions légales</span>
+  </div>
+
+  <div class="page-label">Informations légales</div>
+  <h1 class="page-title">Mentions légales</h1>
+  <p class="page-date">Dernière mise à jour : mai 2026</p>
+
+  <div class="fill-note">
+    Les champs surlignés en jaune sont à compléter dès que tu disposeras de ton numéro SIRET et de ton adresse définitive. Pense à mettre à jour la date de dernière mise à jour à chaque modification.
+  </div>
+
+  <!-- 1. Éditeur -->
+  <div class="ml-section" style="margin-top:2.5rem;">
+    <h2>Éditeur du site</h2>
+    <p>Le présent site est édité par :</p>
+    <p>
+      <strong>Nathanaël Derouineau Leroux</strong><br>
+      Auto-entrepreneur — NDL Studio<br>
+      Activité : Développement web<br>
+      SIRET : <span class="fill-in">À compléter dès réception</span><br>
+      Adresse : <span class="fill-in">8 rue du 19 mars 1962, 28330 Authon du Perche</span><br>
+      Email : <a href="mailto:derouineaunathanael@gmail.com" style="color:var(--blue);">derouineaunathanael@gmail.com</a>
+    </p>
+  </div>
+
+  <!-- 2. Hébergement -->
+  <div class="ml-section">
+    <h2>Hébergement</h2>
+    <p>Ce site est hébergé par :</p>
+    <p>
+      <strong>Netlify, Inc.</strong><br>
+      512 2nd Street, Suite 200<br>
+      San Francisco, CA 94107 — États-Unis<br>
+      Site web : <a href="https://www.netlify.com" target="_blank" style="color:var(--blue);">www.netlify.com</a>
+    </p>
+  </div>
+
+  <!-- 3. Propriété intellectuelle -->
+  <div class="ml-section">
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, visuels, structure, code) est la propriété exclusive de NDL Studio, sauf mention contraire.</p>
+    <p>Toute reproduction, distribution ou utilisation sans autorisation préalable écrite est strictement interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+  </div>
+
+  <!-- 4. Données personnelles -->
+  <div class="ml-section">
+    <h2>Données personnelles</h2>
+    <p>Ce site ne collecte aucune donnée personnelle à l'exception des informations transmises volontairement via le formulaire de contact (nom, email, message).</p>
+    <p>Ces données sont utilisées exclusivement pour répondre à vos demandes et ne sont ni vendues, ni cédées à des tiers.</p>
+    <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez-nous à : <a href="mailto:derouineaunathanael@gmail.com" style="color:var(--blue);">derouineaunathanael@gmail.com</a></p>
+  </div>
+
+  <!-- 5. Cookies -->
+  <div class="ml-section">
+    <h2>Cookies</h2>
+    <p>Ce site n'utilise pas de cookies de traçage ou publicitaires. Aucun cookie tiers n'est déposé sur votre appareil lors de votre visite.</p>
+  </div>
+
+  <!-- 6. Responsabilité -->
+  <div class="ml-section">
+    <h2>Limitation de responsabilité</h2>
+    <p>NDL Studio s'efforce de maintenir les informations de ce site à jour et exactes. Toutefois, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité de ces informations.</p>
+    <p>NDL Studio ne saurait être tenu responsable des dommages directs ou indirects résultant de l'utilisation de ce site ou de l'impossibilité d'y accéder.</p>
+  </div>
+
+  <!-- 7. Droit applicable -->
+  <div class="ml-section">
+    <h2>Droit applicable</h2>
+    <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 NDL Studio — Nathanaël Derouineau Leroux</p>
+  <div class="footer-right">
+    <a href="index.html">Accueil</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </div>
+</footer>
+
+</body>
+</html>

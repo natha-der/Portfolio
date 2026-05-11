@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nathanaël Derouineau – Développeur Web</title>
+<title>NDL Studio – Développement Web</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -49,13 +49,46 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-logo {
+  /* ── LOGO AREA ── */
+  .nav-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-placeholder {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: 2px dashed var(--border-blue);
+    background: var(--light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .logo-placeholder:hover { border-color: var(--blue); }
+
+  /* Remplacez le contenu de .logo-placeholder par votre <img> une fois le logo prêt */
+  .logo-placeholder::after {
+    content: 'LOGO';
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--blue);
+    opacity: 0.5;
+  }
+
+  .nav-brand {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
     font-size: 1.1rem;
     color: var(--blue);
     letter-spacing: -0.5px;
-    text-decoration: none;
   }
 
   .nav-links {
@@ -138,7 +171,6 @@
     overflow: hidden;
   }
 
-  /* Big decorative circle */
   .hero::before {
     content: '';
     position: absolute;
@@ -152,7 +184,75 @@
     z-index: 0;
   }
 
-  .hero-inner { position: relative; z-index: 1; }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  .hero-text { flex: 1; min-width: 0; order: 1; }
+  .hero-logo-area { order: 2; }
+
+  /* ── LOGO HERO ── */
+  .hero-logo-area {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .hero-logo-box {
+    width: 220px;
+    height: 220px;
+    border-radius: 28px;
+    border: 2.5px dashed var(--border-blue);
+    background: var(--light-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 40px rgba(37,99,235,0.07);
+  }
+
+  .hero-logo-box:hover {
+    border-color: var(--blue);
+    box-shadow: 0 12px 50px rgba(37,99,235,0.14);
+  }
+
+  .hero-logo-box .logo-icon {
+    font-size: 2.5rem;
+    opacity: 0.35;
+  }
+
+  .hero-logo-box .logo-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.5;
+  }
+
+  /* Instructions visibles uniquement en mode dev */
+  .hero-logo-box .logo-hint {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--muted2);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
 
   .hero-tag {
     display: inline-flex;
@@ -180,7 +280,7 @@
 
   .hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-size: clamp(2.6rem, 5vw, 4.5rem);
     font-weight: 800;
     line-height: 1.0;
     letter-spacing: -2.5px;
@@ -316,9 +416,7 @@
   .bg-light-blue { background: var(--light-blue); }
   .bg-white { background: var(--white); }
 
-  .full-width-section {
-    width: 100%;
-  }
+  .full-width-section { width: 100%; }
 
   /* ── SKILLS ── */
   .skills-grid {
@@ -341,10 +439,7 @@
     box-shadow: 0 10px 40px rgba(37,99,235,0.08);
   }
 
-  .skill-icon {
-    font-size: 1.7rem;
-    margin-bottom: 0.9rem;
-  }
+  .skill-icon { font-size: 1.7rem; margin-bottom: 0.9rem; }
 
   .skill-name {
     font-family: 'Syne', sans-serif;
@@ -363,8 +458,13 @@
   /* ── PROJECTS ── */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 2fr 1fr;
     gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .project-avis {
+  height: 100%;
   }
 
   .project-card {
@@ -392,12 +492,8 @@
     overflow: hidden;
   }
 
-  .project-thumb.console {
-    background: linear-gradient(135deg, #dde9f8 0%, #bfdbfe 100%);
-  }
-  .project-thumb.paris {
-    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-  }
+  .project-thumb.console { background: linear-gradient(135deg, #dde9f8 0%, #bfdbfe 100%); }
+  .project-thumb.paris   { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
 
   .project-thumb::after {
     content: '';
@@ -472,6 +568,85 @@
     transition: color 0.2s;
   }
   .project-link:hover { color: var(--blue); }
+
+.project-avis {
+  background: var(--off-white);
+  border: 1.5px solid var(--border);
+  border-radius: 22px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  transition: all 0.3s;
+}
+.project-avis:hover {
+  border-color: var(--border-blue);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(37,99,235,0.10);
+}
+
+.avis-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.avis-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avis-nom {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.avis-entreprise {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.avis-etoiles {
+  margin-left: auto;
+  color: #f59e0b;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+.avis-texte {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  font-style: italic;
+  flex: 1;
+}
+
+.avis-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted2);
+}
+
+.avis-projet { font-weight: 600; }
+
+
+
   .project-link::after { content: '→'; }
 
   /* ── SERVICES ── */
@@ -672,6 +847,10 @@
     .hero::before { width: 280px; height: 280px; top: 5%; right: -15%; }
     .hero h1 { letter-spacing: -1.5px; }
     .scroll-hint { display: none; }
+    .hero-inner { flex-direction: column; align-items: flex-start; }
+    .hero-logo-area { align-self: center; order: 1; }
+    .hero-text { order: 2; }
+    .hero-logo-box { width: 160px; height: 160px; border-radius: 20px; }
 
     .section { padding: 4rem 1.5rem; }
 
@@ -679,7 +858,6 @@
     .skill-card { padding: 1.3rem; }
 
     .projects-grid { grid-template-columns: 1fr; }
-
     .services-grid { grid-template-columns: 1fr; }
 
     .contact-box { padding: 3rem 1.5rem; border-radius: 20px; }
@@ -706,12 +884,16 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">NDL</a>
+
+  <a href="#" class="nav-logo-wrapper">
+    <img src="ressource/logo-ndlstudio.png" alt="NDL Studio" style="width:48px;height:48px; border-radius:8px;object-fit:contain">
+    <span class="nav-brand">NDL Studio</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#projets">Projets</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+    <li><a href="#contact" class="nav-cta">Demander un devis</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -723,29 +905,36 @@
   <a href="#competences" onclick="closeMobileMenu()">Compétences</a>
   <a href="#projets" onclick="closeMobileMenu()">Projets</a>
   <a href="#services" onclick="closeMobileMenu()">Services</a>
-  <a href="#contact" onclick="closeMobileMenu()" style="color:var(--blue);font-weight:700;">Me contacter</a>
+  <a href="#contact" onclick="closeMobileMenu()" style="color:var(--blue);font-weight:700;">Demander un devis</a>
 </div>
 
 <!-- HERO -->
 <section style="background: var(--white);">
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-tag">
-        <span class="hero-dot"></span>
-        Disponible pour des missions freelance
+      <div class="hero-logo-area">               
+        <img src="ressource/logo-ndlstudio.png" alt="NDL Studio" style="width:220px;height:220px; border-radius:28px; object-fit:contain">                
       </div>
-      <h1>
-        Nathanaël<br>
-        <span class="name-dim">Derouineau</span><br>
-        <span class="accent">Dev Web.</span>
-      </h1>
-      <p class="hero-sub">
-        Étudiant en licence informatique à Caen. Je crée des sites web modernes, rapides et accessibles pour aider les petites entreprises à être visibles en ligne.
-      </p>
-      <div class="hero-actions">
-        <a href="#projets" class="btn-primary">Voir mes projets</a>
-        <a href="#contact" class="btn-secondary">Me contacter</a>
+
+      <div class="hero-text">
+        <div class="hero-tag">
+          <span class="hero-dot"></span>
+          Disponible pour de nouveaux projets
+        </div>
+        <h1>
+          Votre site web<br>
+          <span class="name-dim">sur-mesure</span><br>
+          <span class="accent">en ligne</span>
+        </h1>
+        <p class="hero-sub">
+          Agence spécialisée dans la création de sites web sur-mesure, modernes et performants. Nous accompagnons les entrepreneurs, artisans et TPE/PME pour établir une présence digitale à leur image.
+        </p>
+        <div class="hero-actions">
+          <a href="#projets" class="btn-primary">Découvrir nos réalisations</a>
+          <a href="#contact" class="btn-secondary">Demander un devis</a>
+        </div>
       </div>
+
     </div>
     <div class="scroll-hint">
       <div class="scroll-line"></div>
@@ -759,28 +948,28 @@
 <!-- COMPÉTENCES -->
 <div class="full-width-section bg-off">
   <section class="section" id="competences">
-    <div class="section-label fade-in">Mes compétences</div>
-    <h2 class="section-title fade-in">Ce que je maîtrise</h2>
+    <div class="section-label fade-in">Expertise</div>
+    <h2 class="section-title fade-in">Nos compétences techniques</h2>
     <div class="skills-grid">
       <div class="skill-card fade-in">
         <div class="skill-icon">🎨</div>
         <div class="skill-name">HTML / CSS</div>
-        <div class="skill-desc">Intégration pixel-perfect, design responsive adapté à tous les écrans.</div>
+        <div class="skill-desc">Intégration précise et soignée, design responsive parfaitement adapté à chaque appareil.</div>
       </div>
       <div class="skill-card fade-in">
         <div class="skill-icon">⚡</div>
         <div class="skill-name">JavaScript</div>
-        <div class="skill-desc">Interactions dynamiques, animations et logique côté client.</div>
+        <div class="skill-desc">Interfaces interactives, animations fluides et logique applicative côté client.</div>
       </div>
       <div class="skill-card fade-in">
         <div class="skill-icon">🚀</div>
         <div class="skill-name">Mise en ligne</div>
-        <div class="skill-desc">Déploiement via GitHub et Netlify. Site en ligne en quelques minutes.</div>
+        <div class="skill-desc">Déploiement professionnel via GitHub et Netlify, avec nom de domaine et certificat SSL inclus.</div>
       </div>
       <div class="skill-card fade-in">
         <div class="skill-icon">📱</div>
-        <div class="skill-name">Responsive Design</div>
-        <div class="skill-desc">Sites optimisés pour mobile, tablette et desktop sans compromis.</div>
+        <div class="skill-name">Services premium</div>
+        <div class="skill-desc">Possibilités de mettre à jour le site de votre côté, formulaire directement lié à votre boite mail, lien avec des bases de données...</div>
       </div>
     </div>
   </section>
@@ -791,15 +980,16 @@
 <!-- PROJETS -->
 <div class="full-width-section bg-white">
   <section class="section" id="projets">
-    <div class="section-label fade-in">Portfolio</div>
-    <h2 class="section-title fade-in">Mes réalisations</h2>
+    <div class="section-label fade-in">Réalisations</div>
+    <h2 class="section-title fade-in">Nos références</h2>
     <div class="projects-grid">
+
       <div class="project-card fade-in">
         <div class="project-thumb console">🌱</div>
         <div class="project-body">
-          <div class="project-tag">Site Garden Wood</div>
-          <div class="project-title">Création complète du site de l'entreprise Garden Wood</div>
-          <div class="project-desc">Site permettant a l'entreprise Garden Wood d'avoir une présence en ligne pour ses clients et un système de contact pratique entre le professionnel et ses clients avec la présence de toute ses prestations.</div>
+          <div class="project-tag">Site vitrine — Garden Wood</div>
+          <div class="project-title">Création du site professionnel Garden Wood</div>
+          <div class="project-desc">Conception d'un site vitrine complet pour cette entreprise spécialisée dans l'aménagement paysager. Le projet intègre une présentation claire des prestations, un système de contact optimisé et une mise en ligne performante pour maximiser la visibilité locale.</div>
           <div class="project-footer">
             <div class="project-techs">
               <span class="tech-pill">HTML</span>
@@ -809,6 +999,26 @@
           </div>
         </div>
       </div>
+      <div class="project-avis fade-in">
+        <div class="avis-header">
+          <div class="avis-avatar">G</div>
+          <div>
+            <div class="avis-nom">Gérant Garden Wood</div>
+            <div class="avis-entreprise">Garden Wood</div>
+          </div>
+          <div class="avis-etoiles">★★★★★</div>
+        </div>
+        <p class="avis-texte">
+          "Nathanaël a su comprendre exactement ce dont nous avions besoin. 
+          Le site est moderne, rapide et nos clients le trouvent facilement. 
+          Très professionnel et réactif tout au long du projet."
+        </p>
+        <div class="avis-footer">
+          <span class="avis-projet">Projet : Site vitrine Garden Wood</span>
+          <span class="avis-date">2026</span>
+        </div>
+      </div>
+
     </div>
   </section>
 </div>
@@ -819,24 +1029,26 @@
 <div class="full-width-section bg-light-blue">
   <section class="section" id="services">
     <div class="section-label fade-in">Tarifs</div>
-    <h2 class="section-title fade-in">Mes services</h2>
+    <h2 class="section-title fade-in">Nos prestations</h2>
     <div class="services-grid">
       <div class="service-card fade-in">
-        <div class="service-price">Dès 300 €</div>
-        <div class="service-name">Site vitrine simple</div>
-        <div class="service-desc">Design moderne, responsive, mise en ligne incluse. Idéal pour un premier site ou une carte de visite en ligne. Le prix peut évoluer en fonction de la demande du client.</div>
+        <div class="service-price">À partir de 350 €</div>
+        <div class="service-name">Site vitrine essentiel</div>
+        <div class="service-desc">Design moderne et responsive, mise en ligne incluse. La solution idéale pour débuter votre présence en ligne avec un site professionnel. Tarif ajusté selon vos besoins spécifiques.</div>
       </div>
       <div class="service-card fade-in">
-        <div class="service-price">Dès 500 €</div>
-        <div class="service-name">Site vitrine complet</div>
-        <div class="service-desc">Plusieurs pages, formulaire de contact, galerie, système de réservation. Parfait pour un commerce ou artisan. Le prix peut évoluer en fonction de la demande du client.</div>
+        <div class="service-price">À partir de 550 €</div>
+        <div class="service-name">Espace d'administration pour modifier votre contenu sans coder</div>
+        <div class="service-desc">Site multi-pages avec espace d'administration. Modifiez vous-même vos horaires, tarifs ou contenus sans toucher au code. Idéal pour les indépendants qui veulent rester autonomes.</div>
       </div>
       <div class="service-card fade-in">
         <div class="service-price">↺</div>
-        <div class="service-name">Maintenance mensuelle</div>
-        <div class="service-desc">Mises à jour, corrections, sauvegardes régulières. Votre site toujours à jour et fonctionnel. La formule minimale est a 50€ par moi. Le prix peut évoluer en fonction de la demande du client.</div>
+        <div class="service-name">Maintenance &amp; suivi</div>
+        <div class="service-desc">Besoin de maintenance mensuel, de mise à jour hebdomadaire, votre site reste actualisée dans le temps. Forfait mensuel à partir de 50 €, adapté à vos besoins.</div>
       </div>
     </div>
+    <div class="section-label fade-in" style="padding-top: 1rem;">Le nom de domaine (~10-15 €/an) est à la charge du client et s'achète directement sur OVH ou Namecheap. Je m'occupe de toute la configuration.</div>
+    <h2 class="section-title fade-in">Besoin d'autre chose ? Devis personnalisé gratuit.</h2>
   </section>
 </div>
 
@@ -846,20 +1058,21 @@
 <div class="full-width-section bg-white">
   <section class="section" id="contact">
     <div class="contact-box fade-in">
-      <h2>Travaillons ensemble 🤝</h2>
-      <p>Vous avez un projet en tête ? Contactez-moi et je vous réponds sous 24h.</p>
-      <a href="mailto:derouineaunathanael@gmail.com" class="contact-email">derouineaunathanael@gmail.com</a>
+      <h2>Démarrons votre projet 🤝</h2>
+      <p>Vous avez un projet web ? Décrivez-nous votre besoin et nous vous répondons sous 24h avec une estimation personnalisée.</p>
+      <a href="mailto:derouineaunathanael@gmail.com" class="contact-email">Nous contacter par mail</a>
     </div>
   </section>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Nathanaël Derouineau Leroux</p>
+  <p>© 2026 NDL Studio — Nathanaël Derouineau Leroux</p>
   <div class="footer-right">
     <a href="#competences">Compétences</a>
     <a href="#projets">Projets</a>
     <a href="#contact">Contact</a>
+    <a href="mentions-legales.html">Mentions légales</a>
   </div>
 </footer>
 
@@ -887,7 +1100,6 @@
     mobileMenu.classList.remove('open');
   }
 
-  // Close mobile menu on outside click
   document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
       mobileMenu.classList.remove('open');
