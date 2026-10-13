@@ -58,7 +58,7 @@ if (form && statusEl) {
       const data = await response.json();
       if (response.ok && data.success) {
         form.reset();
-        setStatus('Merci ! Votre demande est bien envoyée, je vous réponds sous 24 h.', 'ok');
+        setStatus('Merci ! Votre demande est bien envoyée, je vous réponds sous 48 h.', 'ok');
       } else {
         throw new Error(data.message || 'Erreur');
       }
